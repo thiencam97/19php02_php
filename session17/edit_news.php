@@ -28,6 +28,7 @@
 	    	$title      = $_POST['title'];
 	    	$description = $_POST['description'];
 	    	$created    = $_POST['created'];
+	    	$image = "noimage.png";
 	    	if ($title == '') {
 	    		$errTitle = 'Please input title';
 	    	}
@@ -37,17 +38,20 @@
 	    	if ($created == '') {
 	    		$errCre = 'Please choose created date';
 	    	}
-	    	if ($_FILES['image']['error'] == 0) {
-	    		$image = $_FILES['image']['name'];
-	    		move_uploaded_file($_FILES['image']['tmp_name'],'uploads/'.$image);
-	    	}
-	    	  $sql = "UPDATE news SET title = '$title',description = '$description',image = '$image',created = '$created' WHERE id = $id";
-	    	       $edit_data = mysqli_query($connect,$sql);
-				  if ($edit_data) {
-				  	 header('Location:list_news.php');
-				  } else {
-				  	 echo "Failed";
-				  }
+	    	if ($title != '' && $description != '' && $created != '') {
+			    	if ($_FILES['image']['error'] == 0) {
+			    		$image = uniqid().'_'.$_FILES['image']['name'];
+			    		move_uploaded_file($_FILES['image']['tmp_name'],'uploads/'.$image);
+			    	}
+			    	$sql = "UPDATE news SET title = '$title',description = '$description',image = '$image',created = 
+			    	'$created' WHERE id = $id";
+			    	       $edit_data = mysqli_query($connect,$sql);
+						  if ($edit_data) {
+						  	 header('Location:list_news.php');
+						  } else {
+						  	 echo "Failed";
+						  }
+				}
 	    }
 	?>
 	<h1>Form chèn dữ liệu</h1>
