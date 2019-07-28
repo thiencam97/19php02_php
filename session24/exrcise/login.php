@@ -1,7 +1,7 @@
 <?php 
   session_start();
   $username = $password = "";
-  $errUsername = $errPass = $info = "";
+  $errUsername = $errPass = "";
   if(isset($_POST['submit'])) {
   	 $username = $_POST['username'];
   	 $password = $_POST['password'];
@@ -40,7 +40,6 @@
 		<input type="password" name="password"><br>
 		<span class="error"><?php echo $errPass?></span><br>
 		<input type="submit" name="submit" value="Login"><br>
-		<span class="success"><?php echo $info;?></span>
 	</form>
 	
 </body>
