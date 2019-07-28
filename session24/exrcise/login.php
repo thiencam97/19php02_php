@@ -7,8 +7,8 @@
   	 $password = $_POST['password'];
       if($username == "admin" && $password == "123456") {
       	   //lưu session
-		  	// $_SESSION['username'] = $_POST['username'];
-		  	// $_SESSION['password'] = $_POST['password'];   
+		  	$_SESSION['username'] = $_POST['username'];
+		  	$_SESSION['password'] = $_POST['password'];   
             header('Location:home.php');
 
 		  	
