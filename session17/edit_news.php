@@ -10,6 +10,10 @@
 		.error {
 			color: red;
 		}
+		img{
+			height: 80px;
+			width: 80px;
+		}
 	</style>
 </head>
 <body>
@@ -28,7 +32,8 @@
 	    	$title      = $_POST['title'];
 	    	$description = $_POST['description'];
 	    	$created    = $_POST['created'];
-	    	$image = "noimage.png";
+	    	$created = date("Y-m-d", strtotime($cre));
+	    	$image = $editNewsDetail['image'];
 	    	if ($title == '') {
 	    		$errTitle = 'Please input title';
 	    	}
@@ -39,18 +44,22 @@
 	    		$errCre = 'Please choose created date';
 	    	}
 	    	if ($title != '' && $description != '' && $created != '') {
-			    	if ($_FILES['image']['error'] == 0) {
-			    		$image = uniqid().'_'.$_FILES['image']['name'];
-			    		move_uploaded_file($_FILES['image']['tmp_name'],'uploads/'.$image);
-			    	}
+		        //Tạo folder chứa file upload
+				$target_dir = "uploads/";
+				//Tạo đường dẫn của file sau khi uploads lên server
+				// $target_file = $target_dir.basename($_FILES['image']['name']);
+				if ($_FILES['image']['error'] == 0) {
+					  $image = $_FILES['image']['name'];
+			          move_uploaded_file($_FILES['image']['tmp_name'], $target_dir.$image);
+				}
 			    	$sql = "UPDATE news SET title = '$title',description = '$description',image = '$image',created = 
 			    	'$created' WHERE id = $id";
-			    	       $edit_data = mysqli_query($connect,$sql);
-						  if ($edit_data) {
-						  	 header('Location:list_news.php');
-						  } else {
-						  	 echo "Failed";
-						  }
+			    	$edit_data = mysqli_query($connect,$sql);
+				    if ($edit_data) {
+						header('Location:list_news.php');
+						} else {
+						   echo "Failed";
+						 }
 				}
 	    }
 	?>
@@ -64,6 +73,7 @@
 		<span class="error"><?php echo $errDesc ?></span><br>
 		<label>Hình ảnh</label><br>
 		<input type="file" name="image"><br>
+		<img src="uploads/<?php echo $editNewsDetail['image']?>"><br>
 		<label>Ngày tạo</label><br>
 		<input type="date" name="created" value="<?php echo $editNewsDetail['created'] ?>"><br>
 		<span class="error"><?php echo $errCre ?></span><br>

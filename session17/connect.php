@@ -5,6 +5,7 @@
   $database   = '19php02';
 
   $connect = mysqli_connect($servername,$username,$password,$database);
+  mysqli_set_charset($connect,"utf8");
   if ($connect) {
   	echo '<h2 style="color:green">Connected successfully</h2>';
   } else {

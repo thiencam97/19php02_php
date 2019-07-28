@@ -1,6 +1,8 @@
 <?php
    require_once 'connect.php';
+   //câu SQL lấy danh sách
    $sql = 'SELECT * FROM news';
+   //Thực thi câu truy vấn và gán vào $listNews
    $listNews = mysqli_query($connect,$sql);
 ?>
 <table>

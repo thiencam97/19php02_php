@@ -39,8 +39,8 @@
 				//Tạo đường dẫn của file sau khi uploads lên server
 				// $target_file = $target_dir.basename($_FILES['image']['name']);
 				if ($_FILES['image']['error'] == 0) {
-					  $image = uniqid().'_'.$_FILES['image']['name'];
-			          move_uploaded_file($_FILES['image']['tmp_name'],'uploads/'.$image);
+					  $image = $_FILES['image']['name'];
+			          move_uploaded_file($_FILES['image']['tmp_name'], $target_dir.$image);
 				}
 		    	 $sql = "INSERT INTO news(title,description,image,created) VALUES('$title','$description','$image','$created')";
 		    	       $insert_data = mysqli_query($connect,$sql);
